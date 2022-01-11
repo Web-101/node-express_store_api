@@ -1,6 +1,6 @@
 import "dotenv/config";
 import express from "express";
-import productRoutes from "./routers/products";
+import productRoutes from "./routers/productsRouter";
 import * as db from "./db/connect";
 
 // constants
