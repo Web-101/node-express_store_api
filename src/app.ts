@@ -18,4 +18,4 @@ app.get("/", (_, res) => res.redirect("/api/v1/products"));
 app.listen(port, () => console.log(`Server started at port ${port}`));
 
 // start the database
-db.init();
+db.init(process.env.DB_URI as string);
