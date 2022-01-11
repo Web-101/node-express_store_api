@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express from "express";
+import * as db from "./db/connect";
 
 // constants
 const app = express();
@@ -12,3 +13,6 @@ app.get("/", (req, res) => {
 
 // start the server
 app.listen(port, () => console.log(`Server started at port ${port}`));
+
+// start the database
+db.init();
