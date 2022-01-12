@@ -4,15 +4,6 @@ import apiSchema from "../validations/apiSchema";
 
 const router = express.Router();
 
-router
-  .route("/")
-  .get(apiSchema, productsController.getAllProducts)
-  .post(productsController.createProduct);
-
-router
-  .route("/:id")
-  .get(productsController.getProduct)
-  .put(productsController.updateProduct)
-  .delete(productsController.deleteProduct);
+router.get("/products", apiSchema, productsController.getAllProducts);
 
 export default router;
