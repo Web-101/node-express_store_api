@@ -1,6 +1,6 @@
 import * as validator from "express-validator";
 
-const apiSchema = validator.checkSchema({
+const productsSchema = validator.checkSchema({
   name: {
     in: ["query"],
     optional: true,
@@ -47,4 +47,4 @@ const apiSchema = validator.checkSchema({
   },
 });
 
-export default apiSchema;
+export default productsSchema;

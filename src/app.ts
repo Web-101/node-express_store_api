@@ -1,6 +1,6 @@
 import "dotenv/config";
 import express from "express";
-import productRoutes from "./routers/productsRouter";
+import productRoutes from "./routers/products_router";
 import * as db from "./db/connect";
 
 // constants
@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-app.use("/api/v1/products", productRoutes);
+app.use("/api/v1/", productRoutes);
 app.get("/", (_, res) => res.redirect("/api/v1/products"));
 
 // start the server
