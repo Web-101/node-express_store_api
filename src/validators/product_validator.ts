@@ -53,6 +53,30 @@ const productsSchema = validator.checkSchema({
       errorMessage: "parameter value must be a number between 0 and 5",
     },
   },
+  
+  sort: {
+    in: ["query"],
+    optional: true,
+    isObject: true,
+    custom: {
+      options: (object) => {
+        const keys = Object.keys(object) as string[];
+        const values = Object.values(object) as string[];
+
+        const validKeys = ["name", "price", "rating"];
+        const validValues = ["1", "-1"];
+
+        const isKeyValid = keys.every((key) => validKeys.includes(key));
+        const isValidValue = values.every((value) => validValues.includes(value));
+
+        if (!isKeyValid || !isValidValue) {
+          throw new Error("invalid sort parameter");
+        }
+
+        return isKeyValid && isValidValue;
+      }
+    }
+  }
 });
 
 export default productsSchema;
