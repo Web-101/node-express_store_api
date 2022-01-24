@@ -3,13 +3,14 @@ import * as validator from "express-validator";
 import { Request, Response } from "express";
 
 function dbWrapper(res: Response, query = {} as any) {
+  const sort = query.sort ?? "createdAt";
   const limit = query.limit ?? 10;
   const page = query.page ?? 1;
   const skip = (page - 1) * limit;
 
   productsModel
     .find(query)
-    .sort(query.sort)
+    .sort(sort)
     .limit(limit)
     .skip(skip)
     .then((products) => res.json({ products }))
@@ -25,7 +26,7 @@ export function getAllProducts(req: Request, res: Response) {
   const query = validator.matchedData(req);
 
   console.log(query);
-  console.log(req.query)
+  console.log(req.query);
 
   errors.isEmpty()
     ? dbWrapper(res, query)

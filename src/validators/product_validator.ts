@@ -20,12 +20,24 @@ const productsSchema = validator.checkSchema({
   price: {
     in: ["query"],
     optional: true,
-    isNumeric: true,
-    isLength: {
-      options: { min: 1, max: 20 },
-      errorMessage: "parameter length must be between 1 and 20",
+    isObject: true,
+    custom: {
+      options: (value: any) => {
+        const keys = Object.keys(value);
+        const values = Object.values(value);
+
+        const validKeys = ["$gt", "$gte", "$lt", "$lte", "$eq"];
+
+        const isKeyValid = keys.every((key) => validKeys.includes(key));
+        const isValueValid = values.every((value) => typeof value === "number");
+
+        if (!isKeyValid || !isValueValid) {
+          throw new Error("invalid price query");
+        }
+
+        return isKeyValid && isValueValid;
+      },
     },
-    toFloat: true,
   },
 
   company: {
@@ -83,15 +95,15 @@ const productsSchema = validator.checkSchema({
         const validValues = ["1", "-1"];
 
         const isKeyValid = keys.every((key) => validKeys.includes(key));
-        const isValidValue = values.every((value) =>
+        const isValueValid = values.every((value) =>
           validValues.includes(value)
         );
 
-        if (!isKeyValid || !isValidValue) {
+        if (!isKeyValid || !isValueValid) {
           throw new Error("invalid sort parameter");
         }
 
-        return isKeyValid && isValidValue;
+        return isKeyValid && isValueValid;
       },
     },
   },
