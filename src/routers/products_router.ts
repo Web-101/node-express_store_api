@@ -4,6 +4,12 @@ import productsValidation from "../validators/product_validator";
 
 const router = express.Router();
 
-router.get("/products", productsValidation, productsController.getAllProducts);
+router
+  .route("/static")
+  .get(productsController.getAllProductsStatic);
+
+router
+  .route("/search")
+  .get(productsValidation, productsController.getAllProducts);
 
 export default router;

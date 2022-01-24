@@ -10,6 +10,13 @@ const productsSchema = validator.checkSchema({
     },
   },
 
+  featured: {
+    in: ["query"],
+    optional: true,
+    isBoolean: true,
+    toBoolean: true,
+  },
+
   price: {
     in: ["query"],
     optional: true,
@@ -18,6 +25,7 @@ const productsSchema = validator.checkSchema({
       options: { min: 1, max: 20 },
       errorMessage: "parameter length must be between 1 and 20",
     },
+    toFloat: true,
   },
 
   company: {

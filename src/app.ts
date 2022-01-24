@@ -12,8 +12,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-app.use("/api/v1/", productRoutes);
-app.get("/", (_, res) => res.redirect("/api/v1/products"));
+app.use("/api/v1/products", productRoutes);
+app.get("/", (_, res) => res.redirect("/api/v1/products/static"));
 
 // start the server
 app.listen(port, () => console.log(`Server started at port ${port}`));
